@@ -51,46 +51,18 @@ class Pokemon:
             print(self.name + ' isn\'t knocked out!') 
 
     def attack(self, recipient, attack_value):
-        if self.type == 'electric':
-            if recipient.type == 'fire':
-                recipient.lose_health(attack_value)
-            elif recipient.type == 'electric':
-                new_attack = (0.5 * attack_value)
-                recipient.lose_health(new_attack)
-            elif recipient.type == 'water':
-                new_attack = (2 * attack_value)
-                recipient.lose_health(new_attack)
-            else:
-                recipient.lose_health(attack_value)
-        elif self.type == 'fire':
-            if recipient.type == 'electric':
-                recipient.lose_health(attack_value)
-            elif recipient.type == 'fire':
-                new_attack = (0.5 * attack_value)
-                recipient.lose_health(new_attack)
-            elif recipient.type == 'water':
-                new_attack = (0.5 * attack_value)
-                recipient.lose_health(new_attack)
-            else:
-                recipient.lose_health(attack_value)
-        elif self.type == 'water':
-            if recipient.type == 'fire':
-                new_attack = (2 * attack_value)
-                recipient.lose_health(new_attack)
-            elif recipient.type == 'electric':
-                recipient.lose_health(attack_value)
-            elif recipient.type == 'water':
-                new_attack = (0.5 * attack_value)
-                recipient.lose_health(new_attack)
-            else:
-                recipient.lose_health(attack_value)
-
+        damage = {'fire': {'fire': 0.5, 'water': 0.5, 'electric': 0.5}, 'electric':{'fire': 1, 'water': 2, 'electric': 0.5}, 'water':{'fire': 2, 'water': 0.5, 'electric': 1}}
+        multiplier = 0
+        multiplier += damage[self.type][recipient.type]
+        recipient.lose_health(multiplier*attack_value)
 
 
 pikachu = Pokemon('Pikachu', 0, 60, 60, 'electric')
 charmander = Pokemon('Charmander', 0, 50, 50, 'fire')
 squirtle = Pokemon('Squirtle', 0, 60, 60, 'water')
+electabuzz = Pokemon('Electabuzz', 0, 70, 70, 'electric')
+sabernava = Pokemon('Sabernava', 0, 220, 220, 'fire')
+psyduck = Pokemon('Psyduck', 0, 70, 70, 'water')
 
-pikachu.attack(squirtle, 50)
 
-#print(squirtle)
+squirtle.attack(psyduck, 40)
